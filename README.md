@@ -23,4 +23,4 @@ A funcionalidade do chat deverá permitir que:
 # Como realizar
 
 * Para iniciar, clone deste repositório
-* Para organização dos sprints entre os membros da equipe, basta ir no link referente ao projeto [aqui](https://github.com/eagle-id/chat-atendimento-por-mensagem/projects/1) 
+* Para organização dos sprints entre os membros da equipe, basta ir no link referente ao projeto [aqui](https://github.com/eagle-id/chat-atendimento-por-mensagem/projects/2) 
