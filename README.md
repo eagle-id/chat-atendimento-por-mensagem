@@ -17,3 +17,10 @@ A funcionalidade do chat deverá permitir que:
   **- Sintomas** (Descrição dos sintomas apresentados pelo usuário)
 
   **- Informações relevantes** (Se o usuário saiu do país, se teve contato com pessoas infectadas, etc..)
+
+---
+
+# Como realizar
+
+* Para iniciar, clone deste repositório
+* Para organização dos sprints entre os membros da equipe, basta ir no link referente ao projeto [aqui](https://github.com/eagle-id/chat-atendimento-por-mensagem/projects/1) 
