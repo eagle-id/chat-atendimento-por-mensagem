@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Chat - Atendente</title>
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/chat-atendente.css">
+   </head>
+   <body>
+      <ul id="messages"></ul>
+      <form action="">
+         <input id="m" autocomplete="off" /><button>Enviar</button>
+      </form>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script>
+         $(function () {
+         var socket = io();
+         $('form').submit(function(){
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+         });
+         socket.on('chat message', function(msg){
+            $('#messages').append($('<li>').text(msg));
+         });
+         });
+      </script>
+      <div class="container">
+         <div class="col-md-4 menu-lateral">
+            Teste aqui
+         </div>
+         <div class="col-md-8">
+            panel
+         </div>
+      </div>
+    
+  </body>
+</html>
