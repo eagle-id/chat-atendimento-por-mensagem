@@ -24,6 +24,7 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 io.on('connection', function(socket){
   console.log('a user connected');
+  console.log(io.clients);
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
     io.emit('chat message', msg);
