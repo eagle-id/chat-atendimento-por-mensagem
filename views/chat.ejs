@@ -15,7 +15,35 @@
     </style>
   </head>
   <body>
-    <input type="text" id="usr" placeholder="Meu nome" />
+    <table>
+      <tr>
+        <td>
+          Nome
+        </td>
+        <td>
+          <input type="text" id="usr" name="urs" placeholder="Meu nome" />      
+        </td>
+      </tr>
+      <tr>
+        <td>tipo de usuário</td>
+        <td>
+          <input type="radio" id="type_1" name="type" value="paciente" /><label>Paciente</label>
+          <input type="radio" id="type_2" name="type" value="medico" /><label>Medico</label>
+        </td>
+      </tr>
+      <tr>
+        <td>Categoria</td>
+        <td>
+          <select name="categori" id="categ">
+            <option value="medico">Médico</option>
+            <option value="piscologo">Psicologo</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    
+
+    <hr />
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>

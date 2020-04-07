@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Atendimento EGLE CARE</title>
+  <body>
+    <div class="container">
+        <form class="row" [formGroup]="sendCodeForm">
+          <div class="input-field">
+            <input type="text"/>
+            <label for="send-code-phone">Login</label>
+          </div>
+          <div>
+            <button class="btn btn-primary">Entrar</button>
+            <app-loading *ngIf="loading" ></app-loading>
+          </div>
+        </form>
+      </div>
+  </body>
+</html>
+
+
+  

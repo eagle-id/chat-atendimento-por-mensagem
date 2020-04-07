@@ -20,6 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var service = require('../serviceQueue');
 
 var io = require('socket.io')(server);
 io.on('connection', function(socket){
