@@ -120,3 +120,9 @@ hr {
 .col-options img {
    vertical-align: bottom;
 }
+
+.panel-list {
+   background-color: white;
+   box-shadow: 6px 6px 12px #00000029;
+   margin: 5%;
+}
