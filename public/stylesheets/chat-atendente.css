@@ -31,6 +31,12 @@ form button {
    padding: 10px; 
 }
 
+span, p {
+   color: #76767F;
+   font-family: 'Quicksand', sans-serif;
+
+}
+
 #messages { 
    list-style-type: none; 
    margin: 0; 
@@ -47,9 +53,70 @@ form button {
 
 .menu-lateral {
    background-color: white;
+   height: 50rem;
+   max-height: 100%;
+}
+
+hr {
+   border: 1px solid #C8CAD1;
+   width: 90%;
+   margin-left: 4%;
 }
 
 .container {
    display: grid;
    grid-template-columns: 30% 70%;
+}
+
+#logo-dashboard {
+   margin: 1.5rem;
+   width: 50%;
+}
+
+ .img-profile {
+   width: 4rem;
+   height: 4rem;
+   overflow: hidden;
+   max-width: 100%;
+   border-radius: 50%;
+   margin-left: 3rem;
+}
+
+.img-profile #profile {
+   margin: 0rem 0px 0px 0rem;
+   width: 5rem;
+}
+
+.dash-name {
+   margin-bottom: 5%;
+}
+
+.dash-name span {
+   float: right;
+   font-weight: 500;
+   font-size: 21px;
+   width: 20rem;
+   margin-top: -3rem;
+}
+
+.dash-name p {
+   font-size: 15px;
+   float: right;
+   width: 20rem;
+   margin-top: -1.5rem;
+}
+
+.col-options {
+   margin-left: 2%;
+}
+
+.col-options p {
+   line-height: 2em;
+   margin-top: 1em;
+   height: 3em;
+   cursor: pointer;
+}
+
+.col-options img {
+   vertical-align: bottom;
 }
