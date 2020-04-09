@@ -1,0 +1,79 @@
+button {
+   border: none;
+   background-color: #EDEDED;
+   margin-left: 1.5em;
+   cursor: pointer;
+   border-radius: 50%;
+   box-shadow: 0px 3px 6px #00000029;
+   padding: .5rem;
+   margin-top: 3em;
+}
+
+form { 
+   background: transparent; 
+   padding: 3px; 
+   bottom: 0; 
+   width: 100%;
+   display: flex; 
+}
+
+form input {
+   border: 0;
+   padding: 10px;
+   width: 100%;
+   height: 3rem;
+   margin: 1em;
+   border-radius: 10px; 
+   background-color: #EDEDED;
+}
+
+form button { 
+   width: 9%; 
+   background: transparent; 
+   box-shadow: none;
+   margin: 1em; 
+}
+
+.grid-chat {
+   display: grid;
+   grid-template-columns: 80% 20%;
+}
+
+.icon-more {
+   width: 70%;
+}
+
+.buttons-chat-especialista button:last-child {
+   padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+#message-user {
+   background: #FFFFFF 0% 0% no-repeat padding-box;
+   box-shadow: 3px 3px 6px #00000066;
+   border-radius: 10px;
+   width: 55%;
+   margin: 2%;
+}
+
+#message-especialist {
+   background: transparent linear-gradient(270deg, #58C0D6 0%, #51C3D0 54%, #43C9C4 100%) 0% 0% no-repeat padding-box;
+   box-shadow: 3px 3px 6px #00000066;
+   border-radius: 10px;
+   opacity: 1;
+   width: 55%;
+   float: right;
+   margin: 2%;
+}
+
+.message-dashboard p {
+   padding: 2em;
+}
+
+.message-hour {
+   text-align: right;
+   padding: 1em;
+}
+
+.panel-list-dashboard {
+   display: inline-block;
+}
