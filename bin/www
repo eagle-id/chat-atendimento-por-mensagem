@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('chatdemo:server');
+var debug = require('debug')('chatdev:server');
 var http = require('http');
 
 /**
@@ -22,17 +22,173 @@ app.set('port', port);
 var server = http.createServer(app);
 var service = require('../serviceQueue');
 
+var professionalArray = [];
+var patientsArray = [];
+
 var io = require('socket.io')(server);
-io.on('connection', function(socket){
-  console.log('a user connected');
-  console.log(io.clients);
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
+io.on('connection', function(socket) {
+  console.log('a user connected ' + socket.id);
+  
+  socket.on('chat register', function(data){   
+    if (data.type == 'pacient') {
+      registerPacient(socket.id, data);
+      const list = service.categoryList(); 
+      socket.emit('myList', list);
+
+    } else if (data.type == 'professional') {
+      registerProfessional(socket.id, data);
+      let list = service.getCategoryQueue(data.category);
+      socket.emit('myList', list);
+      
+      list = service.categoryList();
+      for (let i = 0; i < patientsArray.length; i++) {
+        const socketId = patientsArray[i].id;
+        io.sockets.in(socketId).emit('myList', list);
+      }
+    }
+
+  });
+
+  socket.on('enter queue', function(data) {
+    const patient = patientsArray.filter(x => x.id == socket.id)[0];
+    if(patient._inQueue == false) {
+      service.enterQueue(data.category, patient);
+      patient.category = data.category;
+      patient.inQueue = true;
+
+      const categoryProfessionals = professionalArray.filter(x => x.category == data.category);
+      const listQueue = service.getCategoryQueue(data.category);
+      for (let i = 0; i < categoryProfessionals.length; i++) {
+        const socketId = categoryProfessionals[i].id;
+        io.sockets.in(socketId).emit('myList', listQueue);
+      }
+      const response = { msg: 'Você entrou na fila por favor aguarde alguns instantes.'};
+      socket.emit('chat message', response);
+    } else {
+      const response = { msg: 'Você ja se encotra em uma fila de espera, favor aguarde alguns instantes.'};
+      socket.emit('chat message', response);
+    }
+    
+  });
+  socket.on('exit queue', function(data) {
+    const patient = patientsArray.filter(x => x.id == socket.id)[0];
+    service.exitQueue(patient.category, patient);
+    patient.inQueue = false;
+    const response = { msg: 'Você ja pode escolher outro atandimento.'};
+      socket.emit('chat message', response);
+    const categoryProfessionals = professionalArray.filter(x => x.category == patient.category);
+    const listQueue = service.getCategoryQueue(patient.category);
+    for (let i = 0; i < categoryProfessionals.length; i++) {
+      const socketId = categoryProfessionals[i].id;
+      io.sockets.in(socketId).emit('myList', listQueue);
+    }
+  });
+
+  socket.on('start', function(data){
+    const patient = patientsArray.filter(x => x.id == data.id)[0];
+    patient.inQueue = false;
+    patient.inTalk = true;
+    const professional = professionalArray.filter(x => x.id == socket.id)[0];
+    professional.addPatient = patient;
+    patient.professionaId = professional.id;
+    if (service.exitQueue(professional.category, patient)) {
+      const categoryProfessionals = professionalArray.filter(x => x.category == professional.category);
+      const listQueue = service.getCategoryQueue(professional.category);
+      /*console.log(categoryProfessionals);
+      console.log(listQueue.desc);
+      console.log(listQueue.patientsQueue);*/
+      for (let i = 0; i < categoryProfessionals.length; i++) {
+        const socketId = categoryProfessionals[i].id;
+        io.sockets.in(socketId).emit('myList', listQueue);
+      }
+
+      let reciverData = {reciver: patient.id}
+      let response = { msg: 'Iniciando o Atendimento de ' + patient.name};
+      socket.emit('start', reciverData);
+      socket.emit('chat message', response);
+
+      reciverData = {reciver: professional.id}
+      response = { msg: 'Você esta sendo Atendido por ' + professional.name};
+      io.sockets.in(patient.id).emit('start', reciverData);
+      io.sockets.in(patient.id).emit('chat message', response);
+    } else {
+      let response = { msg: 'O paciente ja saiu da fila'};
+      socket.emit('chat message', response);
+    }
+    
+  });
+
+  socket.on('finsh', function(data) {
+    const patientId = data.type == 'pacient' ? socket.id : data.id;
+    const professionaId = data.type == 'pacient' ? data.id : socket.id;
+    const patient = patientsArray.filter(x => x.id == patientId)[0];
+    patient.inTalk = false;
+    const professional = professionalArray.filter(x => x.id == professionaId)[0];
+    professional.dismissPatient = patient;
+    let reciverData = {reciver: ''}
+    let response = { msg: 'Encerrando o Atendimento'};
+    io.sockets.in(professional.id).emit('start', reciverData);
+    io.sockets.in(professional.id).emit('chat message', response);
+    io.sockets.in(patient.id).emit('start', reciverData);
+    io.sockets.in(patient.id).emit('chat message', response);
+
+    let list = service.categoryList();
+    io.sockets.in(patient.id).emit('myList', list);
+    list = service.getCategoryQueue(professional.category);
+    io.sockets.in(professional.id).emit('myList', list);
+  });
+
+  socket.on('chat message', function(data){
+    socket.emit('chat message', data);
+    io.sockets.in(data.reciver).emit('chat message', data);
   });
 
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log('user disconnected ' + socket.id);
+    const patient = patientsArray.filter(x => x.id == socket.id);
+    const professional = professionalArray.filter(x => x.id == socket.id)
+    if (patient.length > 0) {
+      if(patient[0]._inQueue){
+        service.exitQueue(patient[0].category, patient[0]);
+
+        const categoryProfessionals = professionalArray.filter(x => x.category == patient[0].category);
+        const listQueue = service.getCategoryQueue(patient[0].category);
+        for (let i = 0; i < categoryProfessionals.length; i++) {
+          const socketId = categoryProfessionals[i].id;
+          io.sockets.in(socketId).emit('myList', listQueue);
+        }
+      }
+      if (patient[0]._inTalk) {
+        const professional = professionalArray.filter(x => x.id == patient[0].professionaId)[0];
+        let reciverData = {reciver: ''}
+        response = { msg: patient[0].name + 'Desconectou.'};
+        io.sockets.in(professional.id).emit('start', reciverData);
+        io.sockets.in(professional.id).emit('chat message', response);
+        professional.dismissPatient = patient;
+        let list = service.getCategoryQueue(professional.category);
+        io.sockets.in(professional.id).emit('myList', list);
+      }
+      patientsArray = patientsArray.filter(x => x.id != patient[0].id);
+    } else if (professional.length > 0) {
+      for (i = 0; i < professional[0].patientsList.length; i++) {
+        let p = professional[0].patientsList[i];
+        let reciverData = {reciver: ''}
+        response = { msg: professional[0].name + 'Desconectou.'};
+        io.sockets.in(p.id).emit('start', reciverData);
+        io.sockets.in(p.id).emit('chat message', response);
+      }
+      categCount = professionalArray.filter(x => x.category ==  professional[0].category).length;
+      if (categCount == 1) {
+        service.destroyCategory(professional[0].category);
+      }
+      list = service.categoryList();
+      for (let i = 0; i < patientsArray.length; i++) {
+        const socketId = patientsArray[i].id;
+        io.sockets.in(socketId).emit('myList', list);
+      }
+      professionalArray = professionalArray.filter(x => x.id !=  professional[0].id);
+    }
+
   });
 });
 
@@ -104,3 +260,13 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
+function registerProfessional(id, data) {
+  var professional = new service.Professional(id, data.name, data.category, data.maxPatients);
+  professionalArray.push(professional);
+  service.createQueue(data.category);
+}
+
+function registerPacient(id, data) {
+  var pacient = new service.Patient(id, data.name, null, null);
+  patientsArray.push(pacient);
+}
