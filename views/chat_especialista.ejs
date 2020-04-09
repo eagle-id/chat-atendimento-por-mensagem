@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Chat - Atendente</title>
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/tela-espera.css">
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/chat_especialista.css">
+   </head>
+   <body>
+      <div class="container">
+         <div class="col-md-4 menu-lateral">
+            <img src="../assets/logotipo_v2.svg" alt="logo"  id="logo-dashboard">
+            <div class="row">
+               <div class="img-profile">
+                  <img src="../assets/profile.jpg" alt="profile" id="profile">
+               </div>
+               <div class="dash-name">
+                  <span class="dash-username"> Bruna  </span>
+                  <p> visualizar/editar </p>
+               </div>
+            </div>
+            <hr>
+            <div class="col-options">
+               <p> 
+                  <img src="../assets/calendar.svg" alt="agendamento"> 
+                  Agendamento de consultas 
+               </p>
+               <p> 
+                  <img src="../assets/help.svg" alt="agendamento"> 
+                  Chat On-line 
+               </p>
+               <p style="display: none;"> 
+                  <img src="../assets/co.svg" alt="agendamento">
+                  Teleconsulta 
+               </p>
+               <hr>
+               <p> 
+                  <img src="../assets/logout.svg" alt="agendamento">
+                  Sair
+               </p>
+            </div>
+         </div>
+         <div class="col-md-8">
+            <div class="panel-list-dashboard">
+               <div class="grid-chat">
+                  <h1 id="nome-usuario"> André Souza </h1>
+                  <div class="buttons-chat-especialista">
+                     <button class="icon-chat icons-button">
+                        <img src="../assets/chat_black.svg" alt="chat-icon" class="icon-atendendo">
+                     </button> 
+                     <button class="icon-mensagem icons-button">
+                        <img src="../assets/consent_black.svg" alt="consent-icon" class="icon-atendendo">
+                     </button> 
+                     <button class="icon-mensagem icons-button">
+                        <img src="../assets/more-options.svg" alt="more-icon" class="icon-more">
+                     </button> 
+                  </div>
+               </div>
+               <div class="message-dashboard" id="message-user">
+                  <p> 
+                     Boa tarde, eu quero 
+                     saber como consultar com um médico, porque os postos estão todos lotados.
+                     Dizem que não irão receber mais ninguém. Como faço agora? Moro longe. 
+                  </p>
+                  <div class="message-hour">
+                     <span> 13:00 </span>
+                  </div> 
+               </div>
+               <div class="message-dashboard" id="message-especialist">
+                  <p> 
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temo incididunt ut labore et dolore
+                     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                     commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in ulpa qui officia deserunt mollit
+                     anim id est laborum
+                  </p>
+                  <div class="message-hour">
+                     <span> 15:00 </span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+    
+  </body>
+</html>
