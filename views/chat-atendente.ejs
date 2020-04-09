@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Chat - Atendente</title>
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/chat-atendente.css">
+   </head>
+   <body>
+      <div class="container">
+         <div class="col-md-4 menu-lateral">
+            <img src="../assets/logotipo_v2.svg" alt="logo"  id="logo-dashboard">
+            <div class="row">
+               <div class="img-profile">
+                  <img src="../assets/profile.jpg" alt="profile" id="profile">
+               </div>
+               <div class="dash-name">
+                  <span class="dash-username"> Bruna  </span>
+                  <p> visualizar/editar </p>
+               </div>
+            </div>
+            <hr>
+            <div class="col-options">
+               <p> 
+                  <img src="../assets/calendar.svg" alt="agendamento"> 
+                  Agendamento de consultas 
+               </p>
+               <p> 
+                  <img src="../assets/help.svg" alt="agendamento"> 
+                  Chat On-line 
+               </p>
+               <p style="display: none;"> 
+                  <img src="../assets/co.svg" alt="agendamento">
+                  Teleconsulta 
+               </p>
+               <hr>
+               <p> 
+                  <img src="../assets/logout.svg" alt="agendamento">
+                  Sair
+               </p>
+            </div>
+         </div>
+         <div class="col-md-8">
+            <div class="panel-list-dashboard">
+               <h1> Fila de espera </h1>
+               <table class="user-waiting-list"> 
+                  <tr>
+                     <th> Nome </th>   
+                     <th> Sobrenome </th>   
+                     <th> Data de Nasc </th>   
+                     <th> Estado </th>   
+                     <th> Cidade </th>   
+                     <th> Status </th>   
+                     <th> Ação </th>   
+                  </tr>
+                  <tr class="user-list">
+                     <td class="nome-usuario"> André </td>
+                     <td class="sobrenome-usuario"> Souza </td>
+                     <td class="data-nasc"> 01/01/2000 </td>
+                     <td class="end-estado"> RS </td>
+                     <td class="end-cidade"> Porto Alegre </td>
+                     <td class="label-status">
+                        <span id="status-atendendo"> Em atendimento </span>     
+                     </td>
+                     <td class="atendimento-icons">
+                        <button id="icon-chat">
+                           <img src="../assets/chat.svg" alt="chat-icon" class="icon-atendendo">
+                        </button> 
+                        <button class="icon-mensagem">
+                           <img src="../assets/consent.svg" alt="consent-icon" class="icon-atendendo">
+                        </button> 
+                     </td>
+                  </tr>
+               </table>
+               <div class="see-more">
+                  <button> ver mais </button>
+               </div>
+            </div>
+         </div>
+      </div>
+    
+  </body>
+</html>
