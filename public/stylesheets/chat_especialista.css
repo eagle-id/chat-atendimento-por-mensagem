@@ -9,6 +9,31 @@ button {
    margin-top: 3em;
 }
 
+form { 
+   background: transparent; 
+   padding: 3px; 
+   bottom: 0; 
+   width: 100%;
+   display: flex; 
+}
+
+form input {
+   border: 0;
+   padding: 10px;
+   width: 100%;
+   height: 3rem;
+   margin: 1em;
+   border-radius: 10px; 
+   background-color: #EDEDED;
+}
+
+form button { 
+   width: 9%; 
+   background: transparent; 
+   box-shadow: none;
+   margin: 1em; 
+}
+
 .grid-chat {
    display: grid;
    grid-template-columns: 80% 20%;
