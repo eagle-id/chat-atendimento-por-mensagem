@@ -1,0 +1,97 @@
+* { 
+   margin: 0; 
+   padding: 0; 
+   box-sizing: border-box; 
+}
+
+body {
+   background-color: #EDEDED; 
+}
+
+.navbar-user {
+   display: grid;
+   grid-template-columns: 50% 50%;
+   box-shadow: 6px 6px 12px #00000029;
+   background: linear-gradient(to right, #43C9C4, #51C3D0, #58C0D6);
+}
+
+.chat-nav-mobile {
+   margin: 2em;
+   text-transform: uppercase;
+   font-family: 'Quicksand', sans-serif;
+   color: white;
+}
+
+.help-button {
+   margin: 2em;
+}
+
+.help-button button {
+   width: 25%;
+   padding: 1em;
+   border-radius: .3em;
+   border: none;
+   text-transform: uppercase;
+   color: #76767F;
+   background-color: #FCE6A0;
+   cursor: pointer;
+   float: right;
+   box-shadow: 0px 3px 6px #00000029;
+}
+
+#message-especialist-mobile {
+   background: #A1EDE4 0% 0% no-repeat padding-box;
+   box-shadow: 3px 3px 6px #00000066;
+   border-radius: 10px;
+   width: 55%;
+   margin: 2%;
+   max-height: 100%;
+}
+
+@media screen and (max-width: 450px) {
+   #message-especialist-mobile {
+      width: 80% !important;
+   }
+}
+
+#message-user-mobile {
+   background: transparent linear-gradient(to right, #58C0D6 0%, #51C3D0 54%, #43C9C4 100%) 0% 0% no-repeat padding-box;
+   box-shadow: 3px 3px 6px #00000066;
+   border-radius: 10px;
+   opacity: 1;
+   width: 80%;
+   float: right;
+   margin: 2%;
+}
+
+@media screen and (max-width: 450px) {
+   #message-user-mobile {
+      width: 80%; 
+   }
+}
+
+.grid-message-user-mobile {
+   display: grid;
+   grid-template-columns: 50% 50%;
+}
+
+.grid-message-especialist-mobile {
+   display: grid;
+   grid-template-columns: 80% 20%;
+}
+
+.form-user-mobile {
+   background: transparent linear-gradient(to right, #58C0D6 0%, #51C3D0 54%, #43C9C4 100%) 0% 0% no-repeat padding-box;
+   position: fixed;
+   bottom: 0;
+}
+
+.form-user-mobile button {
+   border: none;
+   background-color: #EDEDED;
+   cursor: pointer;
+   border-radius: 50%;
+   box-shadow: 0px 3px 6px #00000029;
+   padding: .5rem;
+   width: 5%;
+}

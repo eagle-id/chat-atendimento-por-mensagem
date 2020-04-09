@@ -1,4 +1,4 @@
-button {
+.buttons-chat-especialista button {
    border: none;
    background-color: #EDEDED;
    margin-left: 1.5em;
@@ -31,7 +31,8 @@ form button {
    width: 9%; 
    background: transparent; 
    box-shadow: none;
-   margin: 1em; 
+   margin: 1em;
+   border: none; 
 }
 
 .grid-chat {
@@ -51,7 +52,7 @@ form button {
    background: #FFFFFF 0% 0% no-repeat padding-box;
    box-shadow: 3px 3px 6px #00000066;
    border-radius: 10px;
-   width: 55%;
+   width: 65%;
    margin: 2%;
 }
 
@@ -60,7 +61,7 @@ form button {
    box-shadow: 3px 3px 6px #00000066;
    border-radius: 10px;
    opacity: 1;
-   width: 55%;
+   width: 65%;
    float: right;
    margin: 2%;
 }
@@ -76,4 +77,14 @@ form button {
 
 .panel-list-dashboard {
    display: inline-block;
+}
+
+.grid-message-user {
+   display: grid;
+   grid-template-columns: 80% 20%;
+}
+
+.grid-message-especialist {
+   display: grid;
+   grid-template-columns: 40% 80%;
 }

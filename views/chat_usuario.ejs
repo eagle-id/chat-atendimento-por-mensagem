@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Chat - Atendente</title>
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500&display=swap" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/chat_usuario.css">
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/chat_especialista.css">
+   </head>
+   <body>
+      <nav class="navbar-user">
+         <div class="chat-nav-mobile">
+            <h1> chat online </h1>
+         </div>
+         <div class="help-button">
+            <button> Ajuda </button>
+         </div> 
+      </nav>         
+      <div class="container-mobile">
+         <div class="grid-message-especialist-mobile">
+            <div class="message-dashboard" id="message-especialist-mobile">
+               <p> 
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temo incididunt ut labore et dolore
+                  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in ulpa qui officia deserunt mollit
+                  anim id est laborum
+               </p>
+               <div class="message-hour">
+                  <span> 15:00 </span>
+               </div>
+            </div>
+            <span></span>
+         </div>
+         <div class="grid-message-user-mobile">
+            <span></span>
+            <div class="message-dashboard" id="message-user-mobile">
+               <p> 
+                  Boa tarde, eu quero 
+                  saber como consultar com um médico, porque os postos estão todos lotados.
+                  Dizem que não irão receber mais ninguém. Como faço agora? Moro longe. 
+               </p>
+               <div class="message-hour">
+                  <span> 13:00 </span>
+               </div> 
+            </div>
+         </div>
+         <!-- Envio de mensagem -->
+         <ul id="messages"></ul>
+         <form class="form-user-mobile" action="">
+            <input id="m" autocomplete="off" placeholder="Digite uma mensagem"/>
+            <button>
+               <img src="../assets/send_blue.svg" alt="send-message">
+            </button>
+         </form>
+         <script src="/socket.io/socket.io.js"></script>
+         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+         <script>
+            $(function () {
+            var socket = io();
+            $('form').submit(function(){
+               socket.emit('chat message', $('#m').val());
+               $('#m').val('');
+               return false;
+            });
+            socket.on('chat message', function(msg){
+               $('#messages').append($('<li>').text(msg));
+            });
+            });
+         </script>
+      </div>
+  </body>
+</html>
