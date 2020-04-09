@@ -121,8 +121,95 @@ hr {
    vertical-align: bottom;
 }
 
-.panel-list {
+.panel-list-dashboard {
    background-color: white;
    box-shadow: 6px 6px 12px #00000029;
    margin: 5%;
+}
+
+.panel-list-dashboard h1 {
+   padding: 2em;
+   font-family: 'Quicksand', sans-serif;
+   color: #38383D;
+   font-size: 2em;
+   font-weight: 700;
+}
+
+.user-waiting-list th {
+   text-transform: uppercase;
+   color: #76767F;
+   font-family: 'Quicksand', sans-serif;
+   font-size: 18px;
+   font-weight: 500;
+}
+
+.user-list td {
+   text-align: center;
+   font-size: 16px;
+   font-family: 'Quicksand', sans-serif;
+   color: #76767F;
+   font-weight: normal;
+}
+
+#status-atendendo {
+   background-color: #A1EDE4;
+   padding: 0.2em;
+   border-radius: 0.3em;
+}
+
+#status-encerrado {
+   background-color: #FEA3C4;
+   padding: 0.2em;
+   border-radius: 0.3em;
+}
+
+#status-aguardando {
+   background-color: #FCE6A0;
+   padding: 0.2em;
+   border-radius: 0.3em;
+}
+
+.user-list button {
+   border: none;
+   background-color: #EDEDED;
+   margin-left: 1.5em;
+   cursor: pointer;
+   border-radius: 50%;
+   box-shadow: 0px 3px 6px #00000029;
+   padding: .5rem;
+}
+
+table {
+   width: 95%;
+   border-collapse: collapse;
+   margin: 1.5em;
+}
+
+th, td {
+   border-bottom: 2px solid #C8CAD1;
+   padding: 8px;
+}
+
+.see-more {
+   text-align: center;
+}
+
+.see-more button {
+   width: 10rem;
+   border: none;
+   background: linear-gradient(to right, #43C9C4, #51C3D0, #58C0D6);
+   color: white;
+   padding: 1rem;
+   border-radius: .5em;
+   font-size: 1.5em;
+   text-transform: uppercase;
+   font-weight: 500;
+   cursor: pointer;
+   margin-bottom: 1em;
+}
+
+.see-more button:hover {
+   transform: scale(1.05);
+   box-shadow: 6px 6px 12px #00000029;
+   transition: .3s;
 }

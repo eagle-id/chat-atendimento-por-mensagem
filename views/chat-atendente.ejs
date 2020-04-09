@@ -7,25 +7,6 @@
       <link rel="stylesheet" type="text/css" href="../public/stylesheets/chat-atendente.css">
    </head>
    <body>
-      <ul id="messages"></ul>
-      <form action="">
-         <input id="m" autocomplete="off" /><button>Enviar</button>
-      </form>
-      <script src="/socket.io/socket.io.js"></script>
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script>
-         $(function () {
-         var socket = io();
-         $('form').submit(function(){
-            socket.emit('chat message', $('#m').val());
-            $('#m').val('');
-            return false;
-         });
-         socket.on('chat message', function(msg){
-            $('#messages').append($('<li>').text(msg));
-         });
-         });
-      </script>
       <div class="container">
          <div class="col-md-4 menu-lateral">
             <img src="../assets/logotipo_v2.svg" alt="logo"  id="logo-dashboard">
@@ -48,7 +29,7 @@
                   <img src="../assets/help.svg" alt="agendamento"> 
                   Chat On-line 
                </p>
-               <p> 
+               <p style="display: none;"> 
                   <img src="../assets/co.svg" alt="agendamento">
                   Teleconsulta 
                </p>
@@ -60,8 +41,40 @@
             </div>
          </div>
          <div class="col-md-8">
-            <div class="panel-list">
-               teste
+            <div class="panel-list-dashboard">
+               <h1> Fila de espera </h1>
+               <table class="user-waiting-list"> 
+                  <tr>
+                     <th> Nome </th>   
+                     <th> Sobrenome </th>   
+                     <th> Data de Nasc </th>   
+                     <th> Estado </th>   
+                     <th> Cidade </th>   
+                     <th> Status </th>   
+                     <th> Ação </th>   
+                  </tr>
+                  <tr class="user-list">
+                     <td class="nome-usuario"> André </td>
+                     <td class="sobrenome-usuario"> Souza </td>
+                     <td class="data-nasc"> 01/01/2000 </td>
+                     <td class="end-estado"> RS </td>
+                     <td class="end-cidade"> Porto Alegre </td>
+                     <td class="label-status">
+                        <span id="status-atendendo"> Em atendimento </span>     
+                     </td>
+                     <td class="atendimento-icons">
+                        <button id="icon-chat">
+                           <img src="../assets/chat.svg" alt="chat-icon" class="icon-atendendo">
+                        </button> 
+                        <button class="icon-mensagem">
+                           <img src="../assets/consent.svg" alt="consent-icon" class="icon-atendendo">
+                        </button> 
+                     </td>
+                  </tr>
+               </table>
+               <div class="see-more">
+                  <button> ver mais </button>
+               </div>
             </div>
          </div>
       </div>
