@@ -6,34 +6,155 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      .form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      .form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      .form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
     </style>
   </head>
   <body>
-    <input type="text" id="usr" placeholder="Meu nome" />
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <table>
+      <tr>
+        <td>
+          Nome
+        </td>
+        <td>
+          <input type="text" id="usr" name="urs" placeholder="Meu nome" />      
+        </td>
+      </tr>
+      <tr>
+        <td>tipo de usuário</td>
+        <td>
+          <input type="radio" id="type_1" name="type" value="pacient" /><label>Paciente</label>
+          <input type="radio" id="type_2" name="type" value="professional" /><label>Medico</label>
+        </td>
+      </tr>
+      <tr>
+        <td>Categoria</td>
+        <td>
+          <select name="categori" id="categ">
+            <option value="medico">Médico</option>
+            <option value="piscologo">Psicologo</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Pacientes por vez
+        </td>
+        <td>
+          <input type="number" id="max" name="max" value="1" />      
+        </td>
+      </tr>
+      <tr>
+        <td><button onclick="registar()">Registrar</button></td>
+        <td><button onclick="encerrar()">Finalizar</button>&nbsp;<button onclick="exit()">Sair da fila</button></td>
+      </tr>
+    </table>
+    
+
+    <hr />
+    <table style="width: 100%;">
+      <tr>
+        <td style="width: 50%;border: 1px solid;">
+          <p>Mensagens</p>
+          <ul id="messages"></ul>
+        </td>
+        <td>
+          <p id="list-title">Listagem:</p>
+          <ul id="list">
+          </ul>
+        </td>
+      </tr>
+    </table>
+    <div class="form">
+      <input id="m" autocomplete="off" /><button onclick="send()">Send</button>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
-      $(function () {
-        var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', ($('#usr').val() + ' - ' + $('#m').val()));
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-        });
+      //#region EVENTS
+      var interlocutor = '';
+      socket = io();
+      socket.on('chat message', function(data){
+        $('#messages').append($('<li>').text(data.msg));
       });
+      socket.on('start', function(data){
+        console.log(data);
+        interlocutor = data.reciver;
+      });
+      socket.on('myList', function(list) {
+        $('#list').html('');
+        let myType = $('input[name=type]:checked').val();
+        if(myType == 'pacient') {
+          if(list.length == 0) {
+            $('#list').append($('<li>').text('Sem profissionais disponiveis por favor aguarde.'));
+          }
+          for(i = 0; i < list.length; i++) {
+            $('#list').append($(`<li onclick="enterQueue('${list[i]}')">`).text(list[i]));
+          }
+        } else if (myType == 'professional') {
+          let queue = list[0].patientsQueue;
+          if(queue.length == 0) {
+            $('#list').append($('<li>').text('Sua Fila está vazia no momento por favor aguarde.'));
+          }
+          for(i = 0; i < queue.length; i++) {
+            $('#list').append($(`<li onclick="dequeue('${queue[i]._id}')">`).text(queue[i]._name));
+          }
+        }
+       
+      });
+      //#endregion
+
+
+      //#region FUNCTIONS
+      function send() { 
+        if ($('#m').val() != '' &&  interlocutor != '') {
+          const data = {
+            reciver: interlocutor,
+            msg: $('#m').val()
+          }
+          socket.emit('chat message', data);
+          $('#m').val('');
+        }
+      }
+      function registar() {
+        let data = {
+          name: $('#usr').val(),
+          type: $('input[name=type]:checked').val(),
+          category: $('#categ').val(),
+          maxPatients:$('#max').val()
+        }
+        socket.emit('chat register', (data));
+          return false;
+      }
+      function enterQueue(categ) {
+        let data = {
+          category:categ
+        }; 
+        socket.emit('enter queue', data);
+      }
+      function dequeue(id) {
+        interlocutor = id;
+        let data = {
+          id: id
+        }
+        socket.emit('start', data);
+      }
+      function encerrar() {
+        let data = {
+          id: interlocutor,
+          type: $('input[name=type]:checked').val()
+        }
+        socket.emit('finsh', data);
+        interlocutor = '';
+      }
+      function exit() {
+        socket.emit('exit queue', {});
+      }
+      //#endregion
     </script>
   </body>
 </html>
